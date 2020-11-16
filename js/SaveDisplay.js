@@ -27,10 +27,10 @@ $(".sampleSurvey input[type='submit']").click(function(e) {
   }
   console.log(inputJson);
 
-  firebase;
-  firestore()
+  firebase
+    .firestore()
     .collection("surveyData")
-    .add(inoutJson);
+    .add(inputJson);
   $("form")[0].reset();
 });
 
