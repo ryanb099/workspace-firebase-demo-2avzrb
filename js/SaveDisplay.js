@@ -17,7 +17,7 @@ firebase.initializeApp(firebaseConfig);
 $(".sampleSurvey input[type='submit']").click(function(e) {
   e.preventDefault();
   var inputdata = $("form").serializeArray();
-  console.log(inputdata);
+  //console.log(inputdata);
   var inputJson = {};
   for (var i = 0; i < inputdata.length; i++) {
     var name = inputdata[i]["name"];
@@ -25,13 +25,33 @@ $(".sampleSurvey input[type='submit']").click(function(e) {
     console.log(name + " " + value);
     inputJson[name] = value;
   }
-  console.log(inputJson);
-
-  firebase
-    .firestore()
-    .collection("surveyData")
-    .add(inputJson);
-  $("form")[0].reset();
+  //console.log(inputJson);
 });
+
+firebase
+  .firestore()
+  .collection("surveyData")
+  .onSnapshot(function(querySnapshot) {
+    //console.log(querySnapshot);
+    console.log(querySnapshot.size);
+    querySnapshot.forEach(doc => {
+      console.log(doc.data());
+      $(function() {
+        $("input[name=choice]:radio").click(function() {
+          if ($("input[name=choice]:checked").val() == "A") {
+            $("#ans1").text("1");
+          } else if ($("input[name=choice]:checked").val() == "B") {
+            $("#ans2").text("1");
+          } else if ($("input[name=choice]:checked").val() == "C") {
+            $("#ans3").text("1");
+          } else if ($("input[name=choice]:checked").val() == "D") {
+            $("#ans4").text("1");
+          } else if ($("input[name=choice]:checked").val() == "E") {
+            $("#ans5").text("1");
+          }
+        });
+      });
+    });
+  });
 
 // update the result in table
