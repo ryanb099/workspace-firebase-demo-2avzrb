@@ -16,8 +16,8 @@ $("#signup-form").submit(function(e) {
   console.log("click the submit");
 
   // use the provided sign in
-  var email = "ryekicks@gmail.com";
-  var psw = "1234";
+  var email = document.getElementById("eml").value;
+  var psw = document.getElementById("pw").value;
   firebase
     .auth()
     .createUserWithEmailAndPassword(email, psw)
